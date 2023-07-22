@@ -1,57 +1,94 @@
 #!/bin/bash
-echo "Welcome to our project! You can install basic prerequisites for any project setup here."
-echo "Enter 1 to set up an existing Java project (JDK-17 )."
-echo "Enter 2 to set up a new Java project (JDK-17 )."
-echo "Enter 3 to set up an existing Python project."
-echo "Enter 4 to set up a new Python project."
-echo "Enter 5 to set up an existing C project."
-echo "Enter 6 to set up a new C project."
-echo "Enter 7 to set up an existing C++ project."
-echo "Enter 8 to set up a new C++ project."
-echo "Enter 9 to set up an existing HTML project."
-echo "Enter 10 to set up a new HTML project."
-echo "Enter 11 to set up an existing node JavaScript project."
-echo "Enter 12 to set up a new node JavaScript project."
-echo "Enter 13 to set up an existing CSS project."
-echo "Enter 14 to set up a new CSS project."
-echo "Enter 15 to set up an existing react js project."
-echo "Enter 16 to set up a new react js project."
-echo "-----------------------------------------------------------------------------------------------------------------------------------------------------------------"
 
+# Color codes for formatting
+bold=$(tput bold)
+underline=$(tput smul)
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+yellow=$(tput setaf 3)
+reset=$(tput sgr0)
+
+# Header
+echo "${bold}Welcome to our project!${reset}"
+echo "You can install basic prerequisites for any project setup here."
+
+# Options
+echo "${underline}Choose a project type to set up:${reset}"
+echo "1. ${green}Existing Java project (JDK-17)${reset}"
+echo "2. ${green}New Java project (JDK-17)${reset}"
+echo "3. ${green}Existing Python project${reset}"
+echo "4. ${green}New Python project${reset}"
+echo "5. ${green}Existing C project${reset}"
+echo "6. ${green}New C project${reset}"
+echo "7. ${green}Existing C++ project${reset}"
+echo "8. ${green}New C++ project${reset}"
+echo "9. ${green}Existing HTML project${reset}"
+echo "10. ${green}New HTML project${reset}"
+echo "11. ${green}Existing Node.js project${reset}"
+echo "12. ${green}New Node.js project${reset}"
+echo "13. ${green}Existing CSS project${reset}"
+echo "14. ${green}New CSS project${reset}"
+echo "15. ${green}Existing React.js project${reset}"
+echo "16. ${green}New React.js project${reset}"
+
+# Separator
+echo "-----------------------------------------------------------------------"
+
+# Read user input
 read -p "Enter your choice: " input
 
-if [ "$input" == 1 ]; then
-    sh existing_java_git.sh
-elif [ "$input" == 2 ]; then
-    sh new_java_project.sh
-elif [ "$input" == 3 ]; then
-   sh existing_python.sh
-elif [ "$input" == 4 ]; then
-    sh new_python_project.sh
-elif [ "$input" == 5 ]; then
-    sh existing_c_project.sh
-elif [ "$input" == 6 ]; then
-    sh new_c_project.sh
-elif [ "$input" == 7 ]; then
-    sh existing_cpp_project.sh
-elif [ "$input" == 8 ]; then
-    sh new_cpp_project.sh
-elif [ "$input" == 9 ]; then
-    sh existing_html_project.sh
-elif [ "$input" == 10 ]; then
-    sh new_html_project.sh
-elif [ "$input" == 11 ]; then
-    sh existing_js_project.sh
-elif [ "$input" == 12 ]; then
-    sh new_js_project.sh
-elif [ "$input" == 13 ]; then
-    sh existing_css_project.sh
-elif [ "$input" == 14 ]; then
-    sh new_css_project.sh
-elif [ "$input" == 15 ]; then
-    sh existing_react.sh
-elif [ "$input" == 16 ]; then
-    sh new_js_react_project.sh
-else
-    echo "Invalid input! Please try again."
-fi
+# Execute the corresponding script based on user input
+case $input in
+    1)
+        sh existing_java_git.sh
+        ;;
+    2)
+        sh new_java_project.sh
+        ;;
+    3)
+        sh existing_python.sh
+        ;;
+    4)
+        sh new_python_project.sh
+        ;;
+    5)
+        sh existing_c_project.sh
+        ;;
+    6)
+        sh new_c_project.sh
+        ;;
+    7)
+        sh existing_cpp_project.sh
+        ;;
+    8)
+        sh new_cpp_project.sh
+        ;;
+    9)
+        sh existing_html_project.sh
+        ;;
+    10)
+        sh new_html_project.sh
+        ;;
+    11)
+        sh existing_js_project.sh
+        ;;
+    12)
+        sh new_js_project.sh
+        ;;
+    13)
+        sh existing_css_project.sh
+        ;;
+    14)
+        sh new_css_project.sh
+        ;;
+    15)
+        sh existing_react.sh
+        ;;
+    16)
+        sh new_js_react_project.sh
+        ;;
+    *)
+        echo "${red}Invalid input!${reset} Please try again."
+        exit 1
+        ;;
+esac

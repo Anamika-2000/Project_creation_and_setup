@@ -2,26 +2,51 @@
 
 echo "Starting a new project"
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+
 echo "Installing Git..."
 yum install -y git
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to install Git"
+    exit 1
+fi
 echo "Git has been installed"
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-echo "installing gcc"
-yum install -y gcc
 
+echo "Installing gcc..."
+yum install -y gcc
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to install gcc"
+    exit 1
+fi
+echo "gcc has been installed"
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+
 echo "Installing Vim editor..."
 yum install -y vim
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to install Vim editor"
+    exit 1
+fi
 echo "Vim editor has been installed"
-
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+
 echo "Enter the name of your folder:"
 read -p "Folder name: " folder_name
+
 mkdir "$folder_name"
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to create folder '$folder_name'"
+    exit 1
+fi
 echo "Folder '$folder_name' has been created"
+echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 
 echo "Enter the name of the program:"
 read -p "Program name: " program_name
+
 echo "Please start writing your program"
 cd "$folder_name"
 vim "$program_name".c
+
+echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+echo "Congratulations! You have Git, gcc, Vim editor, and your project folder set up. You can start writing your program in '$program_name.c'. All done!"
