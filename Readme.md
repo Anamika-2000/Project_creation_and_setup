@@ -121,3 +121,9 @@ The individual project setup scripts are as follows:
 <p align="right">
  <a href="#project_creation_and_setup ">Back to top</a>
 </p>
+
+### Running the program
+
+## Java code
+1. Compile using the command `javac file_name.java`.
+2. To run the code use command `java file_name`.
