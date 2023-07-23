@@ -47,7 +47,7 @@ if [ $? -ne 0 ]; then
 fi
 echo "Folder '$folder_name' has been created"
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-
+cd $folder_name
 echo "Let's clone your repository..."
 read -p "Enter the URL for the repository: " url
 read -p "Enter the branch to clone: " name

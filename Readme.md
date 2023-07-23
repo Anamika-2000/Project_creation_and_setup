@@ -125,5 +125,20 @@ The individual project setup scripts are as follows:
 ### Running the program
 
 ## Java code
-1. Compile using the command `javac file_name.java`.
-2. To run the code use command `java file_name`.
+1. Go to directory containing main method.
+2. Compile using the command `javac file_name.java`.
+3. To run the code use command `java file_name`.
+
+## Python code
+1. Go to the directory containing the code.
+2. To run the code use command `python3 file_name.py`.
+
+## C Program
+1. Go to the directory containing the code.
+2. To compile the code use command `gcc -o file_name file_name.c` .
+3. To run the code use command `./file_name`.
+
+## C++ Program
+1. Go to the directory containing the code.
+2. To compile the code use command `g++ -o file_name file_name.c` .
+3. To run the code use command `./file_name`.

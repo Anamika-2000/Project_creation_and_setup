@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Setting up the project from your repository"
+echo "Setting up the java project from your repository"
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 
 echo "Checking Git..."
@@ -36,26 +36,50 @@ else
 fi
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 
-echo "Checking Gradle version 8..."
-if type -p gradle >/dev/null 2>&1; then
-    if [[ $(gradle --version | grep "Gradle 8.0") ]]; then
-        echo "Gradle version 8.0 is installed"
+echo "Do you want to install Ant or Gradle version-8 as a build tool? (Enter 'a' for Ant, 'g' for Gradle, or 'n' for no):"
+read -p "Build tool: " build_tool
+
+if [ "$build_tool" = "g" ]; then
+    echo "Checking Gradle version 8 installation..."
+
+    if type -p gradle >/dev/null 2>&1; then
+        if [[ $(gradle --version | grep "Gradle 8.0") ]]; then
+            echo "Gradle version 8.0 is installed"
+        else
+            echo "Gradle version 8.0 is not installed, installing it now"
+            yum remove -y gradle
+            yum install -y wget
+            wget https://services.gradle.org/distributions/gradle-8.0-bin.zip
+            if [ $? -ne 0 ]; then
+                echo "Error: Failed to download Gradle"
+                exit 1
+            fi
+            yum install -y unzip
+            unzip gradle-8.0-bin.zip -d /opt
+            echo "Gradle 8.0 has been installed"
+        fi
     else
-        echo "Gradle version 8.0 is not installed, installing it now"
-        yum remove -y gradle
+        echo "Gradle is not installed, installing it now"
         yum install -y wget
         wget https://services.gradle.org/distributions/gradle-8.0-bin.zip
+        if [ $? -ne 0 ]; then
+            echo "Error: Failed to download Gradle"
+            exit 1
+        fi
         yum install -y unzip
         unzip gradle-8.0-bin.zip -d /opt
-        echo "Gradle has been installed successfully"
+        echo "Gradle 8.0 has been installed"
     fi
+elif [ "$build_tool" = "a" ]; then
+    echo "Installing Ant..."
+    yum install -y ant
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to install Ant"
+        exit 1
+    fi
+    echo "Ant has been installed"
 else
-    echo "Gradle is not installed, installing Gradle version 8.0"
-    yum install -y wget
-    wget https://services.gradle.org/distributions/gradle-8.0-bin.zip
-    yum install -y unzip
-    unzip gradle-8.0-bin.zip -d /opt
-    echo "Gradle has been installed successfully"
+    echo "No build tool will be installed"
 fi
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 
