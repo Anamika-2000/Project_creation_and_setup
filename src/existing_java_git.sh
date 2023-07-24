@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Setting up the project"
+echo "Setting up an existing the project"
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 
 # Function to check if a package is installed
@@ -9,7 +9,7 @@ check_package() {
         echo "$1 is already installed"
     else
         echo "Installing $1..."
-          yum install -y $1
+        yum install -y $1
         if [ $? -ne 0 ]; then
             echo "Error: Failed to install $1"
             exit 1
@@ -26,67 +26,38 @@ echo "--------------------------------------------------------------------------
 check_package "vim"
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 
-# Check and install JDK 17
-if java -version 2>&1 | grep -q "17\."; then
-    echo "JDK 17 is already installed"
-else
-    echo "Installing JDK 17..."
-      yum install -y java-17-openjdk-devel
-    if [ $? -ne 0 ]; then
-        echo "Error: Failed to install JDK 17"
-        exit 1
-    fi
-    echo "JDK 17 has been installed"
-fi
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+# Ask user for Java version to install
+echo "Which Java version would you like to install? (Enter '8', '11', '17', or 'n' for no Java installation):"
+read -p "Java version: " java_version
 
-# Check and install Gradle
-if which gradle >/dev/null 2>&1; then
-    echo "Gradle is already installed"
+# Check and install java
+if [ "$java_version" = "n" ]; then
+    echo "Java will not be installed"
 else
-    echo "Installing Gradle..."
-      yum install -y gradle
-    if [ $? -ne 0 ]; then
-        echo "Error: Failed to install Gradle"
-        exit 1
-    fi
-    echo "Gradle has been installed"
-fi
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-
-# Check and install Ant
-if which ant >/dev/null 2>&1; then
-    echo "Ant is already installed"
-else
-    echo "Installing Ant..."
-      yum install -y ant
-    if [ $? -ne 0 ]; then
-        echo "Error: Failed to install Ant"
-        exit 1
-    fi
-    echo "Ant has been installed"
-fiecho "Checking JDK 17..."
-if type -p java; then
-    echo "Java is installed"
-    if [[ $(java -version 2>&1) == *"17"* ]]; then
-        echo "Java version 17 is installed"
+    echo "Checking JDK $java_version..."
+    if type -p java; then
+        echo "Java is installed"
+        if [[ $(java -version 2>&1) == *"$java_version"* ]]; then
+            echo "Java version $java_version is installed"
+        else
+            echo "Java version $java_version is not installed, installing it now"
+            yum install -y java-$java_version-amazon-corretto-devel
+            if [ $? -ne 0 ]; then
+                echo "Error: Failed to install Java version $java_version"
+                exit 1
+            fi
+        fi
     else
-        echo "Java version 17 is not installed, installing it now"
-        yum install -y java-17-amazon-corretto-devel
+        echo "Java is not installed, installing Java version $java_version"
+        yum install -y java-$java_version-amazon-corretto-devel
         if [ $? -ne 0 ]; then
-            echo "Error: Failed to install Java version 17"
+            echo "Error: Failed to install Java version $java_version"
             exit 1
         fi
+        echo "Java has been installed successfully"
     fi
-else
-    echo "Java is not installed, installing Java version 17"
-    yum install -y java-17-amazon-corretto-devel
-    if [ $? -ne 0 ]; then
-        echo "Error: Failed to install Java version 17"
-        exit 1
-    fi
-    echo "Java has been installed successfully"
 fi
+
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 
 echo "Do you want to install Ant or Gradle version-8 as a build tool? (Enter 'a' for Ant, 'g' for Gradle, or 'n' for no):"
@@ -125,12 +96,17 @@ if [ "$build_tool" = "g" ]; then
     fi
 elif [ "$build_tool" = "a" ]; then
     echo "Installing Ant..."
-    yum install -y ant
+    if which ant >/dev/null 2>&1; then
+    echo "Ant is already installed"
+else
+    echo "Installing Ant..."
+      yum install -y ant
     if [ $? -ne 0 ]; then
         echo "Error: Failed to install Ant"
         exit 1
     fi
     echo "Ant has been installed"
+fi
 else
     echo "No build tool will be installed"
 fi
