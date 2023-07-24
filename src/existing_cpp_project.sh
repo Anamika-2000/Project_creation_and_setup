@@ -6,7 +6,7 @@ echo "--------------------------------------------------------------------------
 # Check if Git is installed
 if ! which git >/dev/null 2>&1; then
     echo "Git is not installed. Installing Git..."
-    sudo yum install -y git
+      yum install -y git
     if [ $? -ne 0 ]; then
         echo "Error: Failed to install Git"
         exit 1
@@ -20,7 +20,7 @@ echo "--------------------------------------------------------------------------
 # Check if C++ (GCC) is installed
 if ! which g++ >/dev/null 2>&1; then
     echo "C++ compiler (GCC) is not installed. Installing gcc-c++..."
-    sudo yum install -y gcc-c++
+      yum install -y gcc-c++
     if [ $? -ne 0 ]; then
         echo "Error: Failed to install gcc-c++"
         exit 1
@@ -34,7 +34,7 @@ echo "--------------------------------------------------------------------------
 # Check if Vim is installed
 if ! which vim >/dev/null 2>&1; then
     echo "Vim editor is not installed. Installing Vim..."
-    sudo yum install -y vim
+      yum install -y vim
     if [ $? -ne 0 ]; then
         echo "Error: Failed to install Vim editor"
         exit 1

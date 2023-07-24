@@ -9,7 +9,7 @@ check_package() {
         echo "$1 is already installed"
     else
         echo "Installing $1..."
-        sudo yum install -y $1
+          yum install -y $1
         if [ $? -ne 0 ]; then
             echo "Error: Failed to install $1"
             exit 1
@@ -31,7 +31,7 @@ if java -version 2>&1 | grep -q "17\."; then
     echo "JDK 17 is already installed"
 else
     echo "Installing JDK 17..."
-    sudo yum install -y java-17-openjdk-devel
+      yum install -y java-17-openjdk-devel
     if [ $? -ne 0 ]; then
         echo "Error: Failed to install JDK 17"
         exit 1
@@ -45,7 +45,7 @@ if which gradle >/dev/null 2>&1; then
     echo "Gradle is already installed"
 else
     echo "Installing Gradle..."
-    sudo yum install -y gradle
+      yum install -y gradle
     if [ $? -ne 0 ]; then
         echo "Error: Failed to install Gradle"
         exit 1
@@ -59,7 +59,7 @@ if which ant >/dev/null 2>&1; then
     echo "Ant is already installed"
 else
     echo "Installing Ant..."
-    sudo yum install -y ant
+      yum install -y ant
     if [ $? -ne 0 ]; then
         echo "Error: Failed to install Ant"
         exit 1

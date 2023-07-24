@@ -9,7 +9,7 @@ check_package() {
         echo "$1 is already installed"
     else
         echo "Installing $1..."
-        sudo yum install -y $1
+          yum install -y $1
         if [ $? -ne 0 ]; then
             echo "Error: Failed to install $1"
             exit 1
@@ -31,9 +31,9 @@ if which node >/dev/null 2>&1; then
     echo "Node.js is already installed"
 else
     echo "Installing Node.js..."
-    sudo yum install -y gcc-c++ make
-    curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
-    sudo yum install -y nodejs
+      yum install -y gcc-c++ make
+    curl -sL https://rpm.nodesource.com/setup_14.x |   bash -
+      yum install -y nodejs
     if [ $? -ne 0 ]; then
         echo "Error: Failed to install Node.js"
         exit 1

@@ -1,4 +1,7 @@
 #!/bin/bash
+echo "Welcome to the application :)"
+echo "Updating the system"
+
 yum -y update
 # Color codes for formatting
 bold=$(tput bold)

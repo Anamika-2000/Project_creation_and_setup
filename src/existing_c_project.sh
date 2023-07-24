@@ -35,7 +35,7 @@ echo "--------------------------------------------------------------------------
 # Check if Vim is installed
 if ! which vim >/dev/null 2>&1; then
     echo "Vim editor is not installed. Installing Vim..."
-    sudo yum install -y vim
+      yum install -y vim
     if [ $? -ne 0 ]; then
         echo "Error: Failed to install Vim editor"
         exit 1
