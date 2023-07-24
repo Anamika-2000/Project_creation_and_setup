@@ -3,33 +3,50 @@
 echo "Starting an existing project"
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 
-echo "Installing Git..."
-yum install -y git
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to install Git"
-    exit 1
+# Check if Git is installed
+if ! which git >/dev/null 2>&1; then
+    echo "Git is not installed. Installing Git..."
+    yum install -y git
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to install Git"
+        exit 1
+    fi
+    echo "Git has been installed"
+else
+    echo "Git is already installed"
 fi
-echo "Git has been installed"
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 
-echo "Installing gcc..."
-yum install -y gcc
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to install gcc"
-    exit 1
+# Check if GCC (C compiler) is installed
+if ! which gcc >/dev/null 2>&1; then
+    echo "GCC is not installed. Installing gcc..."
+    yum install -y gcc
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to install gcc"
+        exit 1
+    fi
+    echo "gcc has been installed"
+else
+    echo "GCC is already installed"
 fi
-echo "gcc has been installed"
+
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 
-echo "Installing Vim editor..."
-yum install -y vim
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to install Vim editor"
-    exit 1
+# Check if Vim is installed
+if ! which vim >/dev/null 2>&1; then
+    echo "Vim editor is not installed. Installing Vim..."
+    sudo yum install -y vim
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to install Vim editor"
+        exit 1
+    fi
+    echo "Vim editor has been installed"
+else
+    echo "Vim editor is already installed"
 fi
-echo "Vim editor has been installed"
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 
+#Creating folder
 echo "Enter the name of your folder:"
 read -p "Folder name: " folder_name
 
@@ -40,7 +57,9 @@ if [ $? -ne 0 ]; then
 fi
 echo "Folder '$folder_name' has been created"
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+
 cd $folder_name
+
 echo "Let's clone your repository..."
 read -p "Enter the URL for the repository: " url
 read -p "Enter the branch to clone: " name
@@ -60,5 +79,7 @@ else
         exit 1
     fi
 fi
+
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-echo "Project set-up sucessfully!"
+echo "Project set-up for C project successfully!"
+echo "You have installed git, C, vim and gcc :)"

@@ -1,5 +1,5 @@
 #!/bin/bash
-
+yum -y update
 # Color codes for formatting
 bold=$(tput bold)
 underline=$(tput smul)
@@ -26,7 +26,7 @@ echo "9. ${green}Existing HTML project${reset}"
 echo "10. ${green}New HTML project${reset}"
 echo "11. ${green}Existing Node.js project${reset}"
 echo "12. ${green}New Node.js project${reset}"
-echo "13. ${green}Existing CSS project${reset}"
+echo "13. ${green}Existing CSS+HTML project${reset}"
 echo "14. ${green}New CSS project${reset}"
 echo "15. ${green}Existing React.js project${reset}"
 echo "16. ${green}New React.js project${reset}"
@@ -70,10 +70,10 @@ case $input in
         sh new_html_project.sh
         ;;
     11)
-        sh existing_js_project.sh
+        sh existing_node_project.sh
         ;;
     12)
-        sh new_js_project.sh
+        sh new_node_project.sh
         ;;
     13)
         sh existing_css_project.sh

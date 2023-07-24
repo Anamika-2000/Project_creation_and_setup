@@ -1,38 +1,49 @@
 #!/bin/bash
 
-echo "Starting a new project"
+echo "Setting up the React project"
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 
-echo "Installing Git..."
-yum install -y git
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to install Git"
-    exit 1
+# Function to check if a package is installed
+check_package() {
+    if which $1 >/dev/null 2>&1; then
+        echo "$1 is already installed"
+    else
+        echo "Installing $1..."
+        sudo yum install -y $1
+        if [ $? -ne 0 ]; then
+            echo "Error: Failed to install $1"
+            exit 1
+        fi
+        echo "$1 has been installed"
+    fi
+}
+
+# Check and install Git
+check_package "git"
+echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+
+# Check and install Vim editor
+check_package "vim"
+echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+
+# Check and install Node.js
+if which node >/dev/null 2>&1; then
+    echo "Node.js is already installed"
+else
+    echo "Installing Node.js..."
+    sudo yum install -y gcc-c++ make
+    curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
+    sudo yum install -y nodejs
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to install Node.js"
+        exit 1
+    fi
+    echo "Node.js has been installed"
 fi
-echo "Git has been installed"
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 
-echo "Installing Vim editor..."
-yum install -y vim
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to install Vim editor"
-    exit 1
-fi
-echo "Vim editor has been installed"
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-
-echo "Installing Node.js..."
-yum install -y nodejs
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to install Node.js"
-    exit 1
-fi
-echo "Node.js has been installed"
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-
-echo "Enter the name of your folder:"
+echo "Enter the name of your React project folder:"
 read -p "Folder name: " folder_name
-
 mkdir "$folder_name"
 if [ $? -ne 0 ]; then
     echo "Error: Failed to create folder '$folder_name'"
@@ -40,6 +51,8 @@ if [ $? -ne 0 ]; then
 fi
 echo "Folder '$folder_name' has been created"
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+
+cd $folder_name
 
 echo "Let's clone your repository..."
 read -p "Enter the URL for the repository: " url
@@ -61,5 +74,5 @@ else
     fi
 fi
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-
-echo "Congratulations! You have Git, Vim editor, Node.js, and your repository cloned. All done!"
+echo "Project set-up successfully for react project !"
+echo "You have installed git, vim, Python 3 :)"

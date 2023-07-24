@@ -1,40 +1,48 @@
 #!/bin/bash
 
-echo "Setting up the project from your repository"
+echo "Starting a new project"
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 
-echo "Installing Git..."
-yum install -y git
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to install Git"
-    exit 1
-fi
-echo "Git has been installed"
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-
-echo "Checking Python 3.x installation..."
-if python3 --version >/dev/null 2>&1; then
-    echo "Python 3.x is installed"
-    python3 --version
-else
-    echo "Python 3.x is not installed, installing it now"
-    yum install -y python3
+# Check if Python 3 is installed
+if ! which python3 >/dev/null 2>&1; then
+    echo "Python 3 is not installed. Installing Python 3..."
+    sudo yum install -y python3
     if [ $? -ne 0 ]; then
-        echo "Error: Failed to install Python 3.x"
+        echo "Error: Failed to install Python 3"
         exit 1
     fi
-    echo "Python 3.x has been installed"
-    python3 --version
+    echo "Python 3 has been installed"
+else
+    echo "Python 3 is already installed"
 fi
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 
-echo "Installing Vim editor..."
-yum install -y vim
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to install Vim editor"
-    exit 1
+# Check if Vim is installed
+if ! which vim >/dev/null 2>&1; then
+    echo "Vim editor is not installed. Installing Vim..."
+    sudo yum install -y vim
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to install Vim editor"
+        exit 1
+    fi
+    echo "Vim editor has been installed"
+else
+    echo "Vim editor is already installed"
 fi
-echo "Vim editor has been installed"
+echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+
+# Check if Git is installed
+if ! which git >/dev/null 2>&1; then
+    echo "Git is not installed. Installing Git..."
+    sudo yum install -y git
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to install Git"
+        exit 1
+    fi
+    echo "Git has been installed"
+else
+    echo "Git is already installed"
+fi
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
 
 echo "Enter the name of your folder:"
@@ -47,7 +55,9 @@ if [ $? -ne 0 ]; then
 fi
 echo "Folder '$folder_name' has been created"
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+
 cd $folder_name
+
 echo "Let's clone your repository..."
 read -p "Enter the URL for the repository: " url
 read -p "Enter the branch to clone: " name
@@ -68,5 +78,5 @@ else
     fi
 fi
 echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-
-echo "Congratulations! You have Git, Python 3.x, Vim editor, and your repository cloned. All done!"
+echo "Project set-up successfully for python project !"
+echo "You have installed git, vim, Python 3 :)"
