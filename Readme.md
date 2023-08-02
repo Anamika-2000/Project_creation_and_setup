@@ -101,9 +101,7 @@ There is no specific authorization for now, but if it is used by an organization
 ### Local Deployment
 
 1. Firstly clone the repository
-```
 git clone https://github.com/Anamika-2000/Project_creation_and_setup.git
-```
 
 2. Import on Amazonlinux system.
 3. If you are using docker for running the project use command:
@@ -143,15 +141,22 @@ The individual project setup scripts are as follows:
 2. To compile the code use command `g++ -o file_name file_name.c` .
 3. To run the code use command `./file_name`.
 
-### HTML
-1. 
-
 ### React Project
 1. Go to backend directory and use the command `npm i` for installing npm package.
 2. Create a `.env` file in the backend directory.
 3. Use command `npm start` to start the backend.
 4. Go to frontend directory and use the command `npm i` for installing npm package.
 5. Use command `npm start` to start the frontend.
+
+## Simple commands 
+* To insert code in opened file use `i` and then start writting.
+* To save a file press `esc` followed by `:wq` .
+* Use `ls` command to list all the files present.
+* To go out of the directory use `cd ..` .
+* To go to a particual directory use `/directory_name` .
+
+
+
 <p align="right">
  <a href="#project_creation_and_setup ">Back to top</a>
 </p>

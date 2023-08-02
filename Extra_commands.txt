@@ -1,0 +1,21 @@
+To move data use command:mv -f location_of_folder_to_move_or_ *_to _move_all_flies_in_a_folder Location_where_to_coppy
+To delete a file or directory: rm -r file_name
+To copy data use command:cp -r location_of_folder_to_move_or_ *_to _move_all_flies_in_a_folder Location_where_to_coppy
+To install jdk11:amazon-linux-extras install java-openjdk11
+To install jdk8: yum install -y java-1.8.0-openjdk-devel
+To make directory: mkdir file_name
+To open vim editor: vim file_name or vi file_name
+To read what is written in file: cat file_name
+To create an empty file: touch file_name
+To install unzip: yum install unzip
+To unzip file: UNZIP_DISABLE_ZIPBOMB_DETECTION=TRUE unzip .zip_file_location -d destination_location
+To change java version : alternatives --config java
+To check version: * java=>java -version
+                  * python=>python --version
+                  * gcc version=>gcc --version
+                  * git => git --version
+                  
+To remove gradle:  yum remove gradle
+To install wget: yum install wget
+To install install some thing from official website: wget link_of_website
+To take java home location dynamically: export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:/jre/bin/java::")
