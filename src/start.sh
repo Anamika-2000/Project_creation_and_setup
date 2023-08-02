@@ -1,7 +1,4 @@
 #!/bin/bash
-echo "Welcome to the application :)"
-echo "Updating the system"
-
 yum -y update
 # Color codes for formatting
 bold=$(tput bold)
@@ -9,33 +6,36 @@ underline=$(tput smul)
 red=$(tput setaf 1)
 green=$(tput setaf 2)
 yellow=$(tput setaf 3)
+purple=$(tput setaf 5)
 reset=$(tput sgr0)
+sky=$(tput setaf 6)
+
 
 # Header
-echo "${bold}Welcome to our project!${reset}"
+echo "${bold} ${yellow}Welcome to our project :)${reset}"
 echo "You can install basic prerequisites for any project setup here."
 
 # Options
-echo "${underline}Choose a project type to set up:${reset}"
-echo "1. ${green}Existing Java project (JDK-17)${reset}"
+echo "${underline} ${sky}Choose a project type to set up:${reset}"
+echo "1. ${purple}Existing Java project (JDK-17)${reset}"
 echo "2. ${green}New Java project (JDK-17)${reset}"
-echo "3. ${green}Existing Python project${reset}"
+echo "3. ${purple}Existing Python project${reset}"
 echo "4. ${green}New Python project${reset}"
-echo "5. ${green}Existing C project${reset}"
+echo "5. ${purple}Existing C project${reset}"
 echo "6. ${green}New C project${reset}"
-echo "7. ${green}Existing C++ project${reset}"
+echo "7. ${purple}Existing C++ project${reset}"
 echo "8. ${green}New C++ project${reset}"
-echo "9. ${green}Existing HTML project${reset}"
+echo "9. ${purple}Existing HTML project${reset}"
 echo "10. ${green}New HTML project${reset}"
-echo "11. ${green}Existing Node.js project${reset}"
+echo "11. ${purple}Existing Node.js project${reset}"
 echo "12. ${green}New Node.js project${reset}"
-echo "13. ${green}Existing CSS+HTML project${reset}"
+echo "13. ${purple}Existing CSS+HTML project${reset}"
 echo "14. ${green}New CSS project${reset}"
-echo "15. ${green}Existing React.js project${reset}"
+echo "15. ${purple}Existing React.js project${reset}"
 echo "16. ${green}New React.js project${reset}"
 
 # Separator
-echo "-----------------------------------------------------------------------"
+echo "${yellow}-----------------------------------------------------------------------${reset}"
 
 # Read user input
 read -p "Enter your choice: " input

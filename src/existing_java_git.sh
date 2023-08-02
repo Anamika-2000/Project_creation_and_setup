@@ -1,150 +1,153 @@
-#!/bin/bash
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+sky=$(tput setaf 6)
+yellow=$(tput setaf 3)
+colour=$(tput setaf 8)
+reset=$(tput sgr0)
+echo "${green}Setting up an existing project${reset}"
+ echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
 
-echo "Setting up an existing the project"
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-
-# Function to check if a package is installed
 check_package() {
     if which $1 >/dev/null 2>&1; then
-        echo "$1 is already installed"
+        echo "${yellow}$1 is already installed${reset}"
     else
-        echo "Installing $1..."
+        echo "${sky}Installing $1...${reset}"
         yum install -y $1
         if [ $? -ne 0 ]; then
-            echo "Error: Failed to install $1"
+            echo "${red}Error: Failed to install $1${reset}"
             exit 1
         fi
-        echo "$1 has been installed"
+        echo "${green}$1 has been installed${reset}"
     fi
 }
 
 # Check and install Git
 check_package "git"
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
 
 # Check and install Vim editor
 check_package "vim"
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
 
 # Ask user for Java version to install
-echo "Which Java version would you like to install? (Enter '8', '11', '17', or 'n' for no Java installation):"
+echo "${sky}Which Java version would you like to install? (Enter '8', '11', '17', or 'n' for no Java installation):${reset}"
 read -p "Java version: " java_version
 
 # Check and install java
-if [ "$java_version" = "n" ]; then
-    echo "Java will not be installed"
+if [ "$java_version${reset}" = "n" ]; then
+   echo "${red}Java will not be installed${reset}"
 else
-    echo "Checking JDK $java_version..."
+    echo "${green}Checking JDK $java_version...${reset}"
     if type -p java; then
-        echo "Java is installed"
-        if [[ $(java -version 2>&1) == *"$java_version"* ]]; then
-            echo "Java version $java_version is installed"
+     echo "${green}Java is installed${reset}"
+        if [[ $(java -version 2>&1) == *"$java_version${reset}"* ]]; then
+            echo "${green}Java version $java_version  is installed${reset}"
         else
-            echo "Java version $java_version is not installed, installing it now"
+            echo "${red}Java version $java_version is not installed, installing it now${reset}"
             yum install -y java-$java_version-amazon-corretto-devel
             if [ $? -ne 0 ]; then
-                echo "Error: Failed to install Java version $java_version"
+                echo "${red}Error: Failed to installJava version $java_version${reset}"
                 exit 1
             fi
         fi
     else
-        echo "Java is not installed, installing Java version $java_version"
+       echo "${red}Java is not installed, installing Java version $java_version${reset}"
         yum install -y java-$java_version-amazon-corretto-devel
         if [ $? -ne 0 ]; then
-            echo "Error: Failed to install Java version $java_version"
+            echo "${red}Error: Failed to installJava version $java_version${reset}"
             exit 1
         fi
-        echo "Java has been installed successfully"
+        echo "${green}Java has been installed successfully${reset}"
     fi
 fi
 
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
 
-echo "Do you want to install Ant or Gradle version-8 as a build tool? (Enter 'a' for Ant, 'g' for Gradle, or 'n' for no):"
+echo "${red}Do you want to install Ant or Gradle version-8 as a build tool? (Enter 'a' for Ant, 'g' for Gradle, or 'n' for no):${reset}"
+
 read -p "Build tool: " build_tool
 
 if [ "$build_tool" = "g" ]; then
-    echo "Checking Gradle version 8 installation..."
-
+    echo "${yellow}Checking Gradle version 8 installation...${reset}"
     if type -p gradle >/dev/null 2>&1; then
         if [[ $(gradle --version | grep "Gradle 8.0") ]]; then
-            echo "Gradle version 8.0 is installed"
+           echo "${green}Gradle version 8.0  is installed${reset}"
         else
-            echo "Gradle version 8.0 is not installed, installing it now"
+           echo "${red}Gradle version 8.0 is not installed, installing it now${reset}"
             yum remove -y gradle
             yum install -y wget
             wget https://services.gradle.org/distributions/gradle-8.0-bin.zip
             if [ $? -ne 0 ]; then
-                echo "Error: Failed to download Gradle"
+                echo "${red}Error: Failed to download Gradle${reset}"
                 exit 1
             fi
             yum install -y unzip
             unzip gradle-8.0-bin.zip -d /opt
-            echo "Gradle 8.0 has been installed"
+            echo "${green}Gradle 8.0 has been installed${reset}"
         fi
     else
-        echo "Gradle is not installed, installing it now"
+        echo "$(red)Gradle is not installed, installing it now${reset}"
         yum install -y wget
         wget https://services.gradle.org/distributions/gradle-8.0-bin.zip
         if [ $? -ne 0 ]; then
-            echo "Error: Failed to download Gradle"
+            echo "${red}Error: Failed to download Gradle${reset}"
             exit 1
         fi
         yum install -y unzip
         unzip gradle-8.0-bin.zip -d /opt
-        echo "Gradle 8.0 has been installed"
+        echo "${green}Gradle 8.0 has been installed${reset}"
     fi
 elif [ "$build_tool" = "a" ]; then
-    echo "Installing Ant..."
+    echo "${green}Installing Ant...${reset}"
     if which ant >/dev/null 2>&1; then
-    echo "Ant is already installed"
+   echo "${yellow}Ant is already installed${reset}"
 else
-    echo "Installing Ant..."
+    echo "${green}Installing Ant...${reset}"
       yum install -y ant
     if [ $? -ne 0 ]; then
-        echo "Error: Failed to install Ant"
+        echo "${red}Error: Failed to installAnt"
         exit 1
     fi
-    echo "Ant has been installed"
+   echo "${green}Ant has been installed${reset}"
 fi
 else
-    echo "No build tool will be installed"
+     echo "${yellow}No build tool will be installed${reset}"
 fi
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-echo "Enter the name of your folder:"
+echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
+echo "${sky}Enter the name of your folder:${reset}"
 read -p "Folder name: " folder_name
 
 mkdir "$folder_name"
 if [ $? -ne 0 ]; then
-    echo "Error: Failed to create folder '$folder_name'"
+    echo "${red}Error: Failed to create folder '$folder_name'${reset}"
     exit 1
 fi
-echo "Folder '$folder_name' has been created"
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+echo "${yellow}Folder '$folder_name' has been created${reset}"
+echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
 
 cd $folder_name
 
 # cloning
 
-echo "Let's clone your repository..."
+echo "${green}Let's clone your repository...${reset}"
 read -p "Enter the URL for the repository: " url
 read -p "Enter the branch to clone: " name
 
 if [ "$name" = "main" -o "$name" = "MAIN" ]; then
-    echo "Cloning the main branch..."
+  echo "${green}Cloning the main branch...${reset}"
     git clone "$url"
     if [ $? -ne 0 ]; then
-        echo "Error: Failed to clone the main branch"
+          echo "${red}Error: Failed to clone the main branch${reset}"
         exit 1
     fi
 else
-    echo "Cloning the branch: $name"
+    echo "${green}Cloning the branch: $name${reset}"
     git clone -b "$name" --single-branch "$url"
     if [ $? -ne 0 ]; then
-        echo "Error: Failed to clone the branch '$name'"
+         echo "${red}Error: Failed to clone the branch '$name'${reset}"
         exit 1
     fi
 fi
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-echo "Project set-up for java project successfully!"
-echo "You have installed git, vim, jdk :)"
+ echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
+echo "${green}Project set-up forjava project successfully!${reset}"
+echo "${green}You have installed git, vim, jdk and gradle or ant (if you want):)${reset}"

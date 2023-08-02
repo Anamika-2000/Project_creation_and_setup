@@ -1,43 +1,58 @@
 #!/bin/bash
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+sky=$(tput setaf 6)
+yellow=$(tput setaf 3)
+colour=$(tput setaf 8)
+reset=$(tput sgr0)
+echo "${green}Setting up an existing project${reset}"
+echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
 
-echo "Starting a new project"
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+check_package() {
+    if which $1 >/dev/null 2>&1; then
+        echo "${yellow}$1 is already installed${reset}"
+    else
+        echo "${sky}Installing $1...${reset}"
+        yum install -y $1
+        if [ $? -ne 0 ]; then
+            echo "${red}Error: Failed to install $1${reset}"
+            exit 1
+        fi
+        echo "${green}$1 has been installed${reset}"
+    fi
+}
 
-echo "Installing Git..."
-yum install -y git
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to install Git"
-    exit 1
-fi
-echo "Git has been installed"
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+# Check and install Git
+check_package "git"
+echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
 
-echo "Installing Vim editor..."
-yum install -y vim
-if [ $? -ne 0 ]; then
-    echo "Error: Failed to install Vim editor"
-    exit 1
-fi
-echo "Vim editor has been installed"
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+# Check and install Vim editor
+check_package "vim"
+echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
 
-echo "Enter the name of your folder:"
+echo "${sky}Enter the name of your folder:${reset}"
 read -p "Folder name: " folder_name
 
 mkdir "$folder_name"
 if [ $? -ne 0 ]; then
-    echo "Error: Failed to create folder '$folder_name'"
+    echo "${red}Error: Failed to create folder '$folder_name'${reset}"
     exit 1
 fi
-echo "Folder '$folder_name' has been created"
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+echo "${yellow}Folder '$folder_name' has been created${reset}"
+echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
 
-echo "Enter the name of the program:"
+echo "${yellow}Enter the name of the program:${reset}"
 read -p "Program name: " program_name
 
-echo "Please start writing your program"
+echo "${colour}Please start writing your program${reset}"
 cd "$folder_name"
+echo "Your program location is"
+pwd
 vim "$program_name.css"
+if [ $? -ne 0 ]; then
+    echo "${red}Error: Failed to open Vim editor${reset}"
+    exit 1
+fi
 
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-echo "Congratulations! You have Git, Vim editor, and your project folder set up. You can start writing your program in '$program_name.css'. All done!"
+ echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
+ echo "${green}Congratulations! You have Git, Vim editor, and your project folder set up. All done!${reset}"

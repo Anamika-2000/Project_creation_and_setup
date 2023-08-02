@@ -1,82 +1,80 @@
-#!/bin/bash
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+sky=$(tput setaf 6)
+yellow=$(tput setaf 3)
+colour=$(tput setaf 8)
+reset=$(tput sgr0)
+echo "${green}Setting up an existing project${reset}"
+echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
 
-echo "Starting a new project"
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+check_package() {
+    if which $1 >/dev/null 2>&1; then
+        echo "${yellow}$1 is already installed${reset}"
+    else
+        echo "${sky}Installing $1...${reset}"
+        yum install -y $1
+        if [ $? -ne 0 ]; then
+            echo "${red}Error: Failed to install $1${reset}"
+            exit 1
+        fi
+        echo "${green}$1 has been installed${reset}"
+    fi
+}
+
+# Check and install Git
+check_package "git"
+echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
+
+# Check and install Vim editor
+check_package "vim"
+echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
 
 # Check if Python 3 is installed
 if ! which python3 >/dev/null 2>&1; then
-    echo "Python 3 is not installed. Installing Python 3..."
+    echo "${yellow}Python 3 is not installed. Installing Python 3...${reset}"
       yum install -y python3
     if [ $? -ne 0 ]; then
-        echo "Error: Failed to install Python 3"
+        echo "${red}Error: Failed to installPython 3${reset}"
         exit 1
     fi
-    echo "Python 3 has been installed"
+    echo "${green}Python 3 has been installed${reset}"
 else
-    echo "Python 3 is already installed"
+    echo "${green}Python 3 is already installed${reset}"
 fi
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+ echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
 
-# Check if Vim is installed
-if ! which vim >/dev/null 2>&1; then
-    echo "Vim editor is not installed. Installing Vim..."
-      yum install -y vim
-    if [ $? -ne 0 ]; then
-        echo "Error: Failed to install Vim editor"
-        exit 1
-    fi
-    echo "Vim editor has been installed"
-else
-    echo "Vim editor is already installed"
-fi
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-
-# Check if Git is installed
-if ! which git >/dev/null 2>&1; then
-    echo "Git is not installed. Installing Git..."
-      yum install -y git
-    if [ $? -ne 0 ]; then
-        echo "Error: Failed to install Git"
-        exit 1
-    fi
-    echo "Git has been installed"
-else
-    echo "Git is already installed"
-fi
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-
-echo "Enter the name of your folder:"
+echo "${sky}Enter the name of your folder:${reset}"
 read -p "Folder name: " folder_name
 
 mkdir "$folder_name"
 if [ $? -ne 0 ]; then
-    echo "Error: Failed to create folder '$folder_name'"
+    echo "${red}Error: Failed to create folder '$folder_name'${reset}"
     exit 1
 fi
-echo "Folder '$folder_name' has been created"
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+echo "${yellow}Folder '$folder_name' has been created${reset}"
+ echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
 
 cd $folder_name
 
-echo "Let's clone your repository..."
+echo "${green}Let's clone your repository...${reset}"
 read -p "Enter the URL for the repository: " url
 read -p "Enter the branch to clone: " name
 
 if [ "$name" = "main" -o "$name" = "MAIN" ]; then
-    echo "Cloning the main branch..."
+  echo "${green}Cloning the main branch...${reset}"
     git clone "$url"
     if [ $? -ne 0 ]; then
-        echo "Error: Failed to clone the main branch"
+          echo "${red}Error: Failed to clone the main branch${reset}"
         exit 1
     fi
 else
-    echo "Cloning the branch: $name"
+    echo "${green}Cloning the branch: $name${reset}"
     git clone -b "$name" --single-branch "$url"
     if [ $? -ne 0 ]; then
-        echo "Error: Failed to clone the branch '$name'"
+         echo "${red}Error: Failed to clone the branch '$name'${reset}"
         exit 1
     fi
 fi
-echo "--------------------------------------------------------------------------------------------------------------------------------------------"
-echo "Project set-up successfully for python project !"
-echo "You have installed git, vim, Python 3 :)"
+ echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
+echo "${green}Project set-up successfully for python project !${reset}"
+echo "${green}You have installed git, vim, Python 3 :)${reset}"
