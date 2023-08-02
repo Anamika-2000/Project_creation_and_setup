@@ -31,7 +31,7 @@ check_package "vim"
 echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
 
 # Ask user for Java version to install
-echo "${sky}Which Java version would you like to install? (Enter '8', '11', '17', or 'n' for no Java installation):${reset}"
+echo "${sky}Which Java version would you like to install? (Enter '17', or 'n' for no Java installation):${reset}"
 read -p "Java version: " java_version
 
 # Check and install java
@@ -131,7 +131,7 @@ read -p "Program name: " program_name
 
 echo "${sky}Please start writing your Java program${reset}"
 cd "$folder_name"
-echo "${red}Your program is located at${reset}"
+echo "${sky}Your program is located at${reset}"
 pwd
 vim "$program_name.java"
 if [ $? -ne 0 ]; then

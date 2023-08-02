@@ -44,9 +44,9 @@ echo "${colour}-----------------------------------------------------------------
 echo "${yellow}Enter the name of the program:${reset}"
 read -p "Program name: " program_name
 
-echo "${colour}Please start writing your program${reset}"
+echo "${sky}Please start writing your program${reset}"
 cd "$folder_name"
-echo "Your program location is"
+echo "${sky}Your program location is${reset}"
 pwd
 vim "$program_name.css"
 if [ $? -ne 0 ]; then

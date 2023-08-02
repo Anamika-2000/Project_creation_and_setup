@@ -32,7 +32,7 @@ echo "${colour}-----------------------------------------------------------------
 
 echo "Checking Python 3.x installation..."
 if python3 --version >/dev/null 2>&1; then
-    echo "Python 3.x  is installed${reset}"
+    echo "${green}Python 3.x  is installed${reset}"
     python3 --version
 else
     echo "${red}Python 3.x is not installed${reset}"
@@ -62,7 +62,7 @@ read -p "Program name: " program_name
 
 echo "${colour}Please start writing your program${reset}"
 cd "$folder_name"
-echo " Your program is at location"
+echo "${sky} Your program is at location${reset}"
 pwd 
 vim "$program_name.py"
 if [ $? -ne 0 ]; then

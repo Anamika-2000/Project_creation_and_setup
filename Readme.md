@@ -152,3 +152,6 @@ The individual project setup scripts are as follows:
 3. Use command `npm start` to start the backend.
 4. Go to frontend directory and use the command `npm i` for installing npm package.
 5. Use command `npm start` to start the frontend.
+<p align="right">
+ <a href="#project_creation_and_setup ">Back to top</a>
+</p>

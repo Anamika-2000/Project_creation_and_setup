@@ -30,7 +30,7 @@ echo "10. ${green}New HTML project${reset}"
 echo "11. ${purple}Existing Node.js project${reset}"
 echo "12. ${green}New Node.js project${reset}"
 echo "13. ${purple}Existing CSS+HTML project${reset}"
-echo "14. ${green}New CSS project${reset}"
+echo "14. ${green}New CSS+HTML project${reset}"
 echo "15. ${purple}Existing React.js project${reset}"
 echo "16. ${green}New React.js project${reset}"
 

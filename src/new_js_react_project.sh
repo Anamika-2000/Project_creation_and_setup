@@ -61,7 +61,7 @@ read -p "Program name: " program_name
 
 echo "${colour}Please start writing your program${reset}"
 cd "$folder_name"
-echo "Your program is at location"
+echo "${sky}Your program is at location${reset}"
 pwd
 npx create-react-app "$program_name"
 if [ $? -ne 0 ]; then

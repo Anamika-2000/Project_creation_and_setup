@@ -30,7 +30,7 @@ check_package "vim"
 echo "${colour}--------------------------------------------------------------------------------------------------------------------------------------------${reset}"
 
 # Ask user for Java version to install
-echo "${sky}Which Java version would you like to install? (Enter '8', '11', '17', or 'n' for no Java installation):${reset}"
+echo "${sky}Which Java version would you like to install? (Enter'17' or 'n' for no Java installation):${reset}"
 read -p "Java version: " java_version
 
 # Check and install java
