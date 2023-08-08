@@ -1,21 +1,98 @@
-To move data use command:mv -f location_of_folder_to_move_or_ *_to _move_all_flies_in_a_folder Location_where_to_coppy
-To delete a file or directory: rm -r file_name
-To copy data use command:cp -r location_of_folder_to_move_or_ *_to _move_all_flies_in_a_folder Location_where_to_coppy
-To install jdk11:amazon-linux-extras install java-openjdk11
-To install jdk8: yum install -y java-1.8.0-openjdk-devel
-To make directory: mkdir file_name
-To open vim editor: vim file_name or vi file_name
-To read what is written in file: cat file_name
-To create an empty file: touch file_name
-To install unzip: yum install unzip
-To unzip file: UNZIP_DISABLE_ZIPBOMB_DETECTION=TRUE unzip .zip_file_location -d destination_location
-To change java version : alternatives --config java
-To check version: * java=>java -version
-                  * python=>python --version
-                  * gcc version=>gcc --version
-                  * git => git --version
-                  
-To remove gradle:  yum remove gradle
-To install wget: yum install wget
-To install install some thing from official website: wget link_of_website
-To take java home location dynamically: export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:/jre/bin/java::")
+> To move data use command:mv -f location_of_folder_to_move_or_ *_to _move_all_flies_in_a_folder Location_where_to_coppy
+> To delete a file or directory: rm -r file_name
+> To copy data use command:cp -r location_of_folder_to_move_or_ *_to _move_all_flies_in_a_folder Location_where_to_coppy
+> To install jdk11:amazon-linux-extras install java-openjdk11
+> To install jdk8: yum install -y java-1.8.0-openjdk-devel
+> To install jdk17: yum install java-17.amazon-coreto
+> To install `jmod` in java 17: yum install java-17-amazon-correto-jmods ===> you need jmods for custom jre 
+> To make directory: mkdir file_name
+> To open vim editor: vim file_name or vi file_name
+> To read what is written in file: cat file_name
+> To remove file: rm -r file_name
+> To remove file forcely: rm -rf file name
+> To remove all files with same alphabet: rm -r a*
+> To create an empty file: touch file_name
+> To install unzip: yum install unzip
+> To unzip file: UNZIP_DISABLE_ZIPBOMB_DETECTION=TRUE unzip .zip_file_location -d destination_location
+> To change java version : alternatives --config java
+> To check version: * java=>java -version
+> python=>python --version
+> gcc version=>gcc --version
+> git => git --version
+                      
+> To remove gradle:  yum remove gradle
+> To install wget: yum install wget
+> To install install some thing from official website: wget link_of_website
+> To take java home location dynamically: export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:/jre/bin/java::")
+> To make build: gradle build/ ant build
+> To write some thing in file: sed -i "s#FILE_PATH=/home/qss4/log#FILE_PATH=/$folder_name/qss4/log#" /support-qss4/Bash_script/support-qss4/dev_resource/log.properties  [<= to change log.properties file] 
+* or
+* sed -i "sword_to_change/new_word" /location of file with file name
+> To make a gradle project : gradle init
+> To check jar file : java -jar jar_name
+> To install ant/vim/git: yum install -y <app_name>
+> To make build using gradle/ant: ant/gradle build
+> To change directory:cd file_name
+> To come outside a directory: cd ..
+> To check the path: pwd
+> To change mod: chmod +x file_name
+> To run script: sh script_name.sh 
+* or
+* chmod +x file_name
+* ./file_name
+> To list files and folders at some location: ls
+> To jump straight to a file: cd /home
+> To print : echo "git"
+> To assign variable use $
+> To go to root user: sudo -su
+> To ge to other user: sudo -name
+> To check all the processes running on server:ps -ef | grep java
+> To add user: useradd user_name
+> To delete user: userdel --remove user_name
+> To set password: password user_name
+> To add sticky bit: chmod +t file_name
+> To remove sticky bit: chmod -t file_name
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                                        TEST SCRIPT:
+expected_status_code=200
+response=$(curl -s -o /dev/null -w "%{http_code}" --location 'API' \--header 'Authorization: Basic cXVvZGRkc3Q6b25kZW1hbmRxdW9kZGRzdA==')
+echo "status code is : $response"
+if [ -z "$response" ] || ! [[ "$response" =~ ^[0-9]+$ ]]; then
+  echo "ERROR: Invalid or empty status code"
+  exit 1
+fi
+if [ "$response" -ne "$expected_status_code" ]; then
+  echo "FAIL: Expected status code $expected_status_code, but got $response"
+  exit 1
+fi
+echo "PASS"
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                      To pass parameters in script
+*to run: sh script_name.sh pram1 param2 
+*script:
+BRANCH1=$1
+if [ "$BRANCH1" = "main" ]; then
+    echo "clonning Main branch"
+    git clone https://github.com/financeware/support-qss4.git
+else
+    echo "branch name is $BRANCH1"
+    git clone -b $BRANCH1 https://github.com/financeware/support-qss4.git
+fi
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                    Difference between in docker file 
+ENTRYPOINT=>to start and stop the container once task is done
+CMD=> container keeps to run even after the process is finished
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                 FOR CUSTOM JRE STEPS:-
+1. Install jmods
+2. jlink --module-path <path_of_jmods> --addmodule <java_module_to_add> --output custom-runtime/filename
+3. To check size du -sh custom-runtime
+4. To compile and run use javac main_prog.java and java main_prog
+5. To check list of required dependency and module: jdeps main_prog.class
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                                                                  To export paths:
+export JAVA_HOME=/tmp/jdk-17.0.8/
+export PATH=$PATH:/tmp/gradle-8.1.1/bin
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
